@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CBT Engine (Offline)</title>
+    <title>ProQuiz CBT Engine (Offline)</title>
     <style>
         /* --- OFFLINE CSS (Professional Theme) --- */
         :root {
             /* Corporate/Academic Palette */
             --bg-body: #eef2f6;
             --bg-card: #ffffff;
-            --primary: #1a365d;
-            /* Navy Blue */
+            --primary: #1a365d; /* Navy Blue */
             --primary-light: #2c5282;
-            --accent: #3182ce;
-            /* Bright Blue for active states */
+            --accent: #3182ce; /* Bright Blue for active states */
             --text-main: #2d3748;
             --text-muted: #718096;
             --border: #e2e8f0;
@@ -24,25 +21,21 @@
             --warning: #c05621;
         }
 
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            margin: 0;
+        * { box-sizing: border-box; }
+        
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            background-color: var(--bg-body); 
+            color: var(--text-main); 
+            margin: 0; 
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
         /* Utilities */
-        .hidden {
-            display: none !important;
-        }
-
+        .hidden { display: none !important; }
+        
         /* Layout Container */
         .main-wrapper {
             max-width: 900px;
@@ -55,181 +48,115 @@
         }
 
         /* BUTTONS */
-        .btn {
-            padding: 10px 20px;
-            border-radius: 4px;
-            border: 1px solid transparent;
-            font-weight: 600;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
+        .btn { 
+            padding: 10px 20px; 
+            border-radius: 4px; 
+            border: 1px solid transparent; 
+            font-weight: 600; 
+            cursor: pointer; 
+            display: inline-flex; 
+            align-items: center; 
             justify-content: center;
-            gap: 8px;
+            gap: 8px; 
             font-size: 0.95rem;
             transition: all 0.2s;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-
-        .btn-primary {
-            background: var(--primary);
-            color: white;
+        .btn-primary { 
+            background: var(--primary); 
+            color: white; 
             box-shadow: 0 2px 4px rgba(26, 54, 93, 0.2);
         }
-
-        .btn-primary:hover {
-            background: var(--primary-light);
-            transform: translateY(-1px);
-        }
-
-        .btn-success {
-            background: var(--success);
-            color: white;
-        }
-
-        .btn-success:hover {
-            background: #276749;
-        }
-
-        .btn-danger {
-            color: white;
-            background: var(--danger);
-        }
-
-        .btn-danger:hover {
-            background: #9b2c2c;
-        }
-
-        .btn-secondary {
-            background: white;
-            border-color: #cbd5e0;
-            color: var(--text-main);
-        }
-
-        .btn-secondary:hover {
-            background: #f7fafc;
-            border-color: #a0aec0;
-        }
-
+        .btn-primary:hover { background: var(--primary-light); transform: translateY(-1px); }
+        .btn-success { background: var(--success); color: white; }
+        .btn-success:hover { background: #276749; }
+        .btn-danger { color: white; background: var(--danger); }
+        .btn-danger:hover { background: #9b2c2c; }
+        .btn-secondary { background: white; border-color: #cbd5e0; color: var(--text-main); }
+        .btn-secondary:hover { background: #f7fafc; border-color: #a0aec0; }
+        
         /* HEADER - Corporate Style */
-        header {
-            background: var(--primary);
+        header { 
+            background: var(--primary); 
             color: white;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
         }
-
-        .header-content {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 20px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+        .header-content { 
+            max-width: 900px; 
+            margin: 0 auto; 
+            padding: 0 20px; 
+            height: 60px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
         }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 700;
-            font-size: 1.2rem;
+        .logo { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            font-weight: 700; 
+            font-size: 1.2rem; 
             letter-spacing: 0.5px;
         }
-
-        .logo-icon {
-            width: 28px;
-            height: 28px;
-            background: white;
-            color: var(--primary);
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .logo-icon { 
+            width: 28px; 
+            height: 28px; 
+            background: white; 
+            color: var(--primary); 
+            border-radius: 4px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
             font-weight: 900;
         }
-
-        .header-info {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            font-size: 0.9rem;
-        }
-
+        .header-info { display: flex; align-items: center; gap: 20px; font-size: 0.9rem; }
+        
         /* TIMER */
-        .timer-badge {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 6px 16px;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            font-family: "Courier New", Courier, monospace;
-            /* Monospace for stable numbers */
+        .timer-badge { 
+            background: rgba(0, 0, 0, 0.3); 
+            padding: 6px 16px; 
+            border-radius: 4px; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            border: 1px solid rgba(255,255,255,0.1);
+            font-family: "Courier New", Courier, monospace; /* Monospace for stable numbers */
             font-weight: 700;
             font-size: 1.1rem;
             letter-spacing: 1px;
         }
-
-        .timer-badge.urgent {
-            background: var(--danger);
+        .timer-badge.urgent { 
+            background: var(--danger); 
             animation: pulse 1s infinite;
         }
-
-        @keyframes pulse {
-            0% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.7;
-            }
-
-            100% {
-                opacity: 1;
-            }
-        }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
 
         /* CARDS */
-        .card {
-            background: var(--bg-card);
-            border-radius: 8px;
-            border: 1px solid #d1d5db;
-            /* Sharper border */
+        .card { 
+            background: var(--bg-card); 
+            border-radius: 8px; 
+            border: 1px solid #d1d5db; /* Sharper border */
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            padding: 40px;
+            padding: 40px; 
             margin-bottom: 20px;
         }
-
+        
         /* UPLOAD SCREEN */
-        .upload-area {
-            border: 2px dashed #a0aec0;
-            border-radius: 8px;
-            padding: 50px 20px;
-            cursor: pointer;
+        .upload-area { 
+            border: 2px dashed #a0aec0; 
+            border-radius: 8px; 
+            padding: 50px 20px; 
+            cursor: pointer; 
             transition: all 0.2s;
             position: relative;
             background: #f8fafc;
         }
-
-        .upload-area:hover {
-            border-color: var(--accent);
-            background: #ebf8ff;
-        }
-
-        .upload-input {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            cursor: pointer;
-        }
+        .upload-area:hover { border-color: var(--accent); background: #ebf8ff; }
+        .upload-input { position: absolute; top:0; left:0; width:100%; height:100%; opacity: 0; cursor: pointer; }
 
         /* CONFIG SCREEN */
         .config-label {
@@ -241,7 +168,6 @@
             margin-bottom: 8px;
             letter-spacing: 0.5px;
         }
-
         .config-input {
             width: 100%;
             padding: 12px;
@@ -251,12 +177,7 @@
             transition: border 0.2s;
             color: var(--text-main);
         }
-
-        .config-input:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
-        }
+        .config-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1); }
 
         /* EXAM INTERFACE */
         .progress-container {
@@ -267,14 +188,8 @@
             top: 0;
             left: 0;
         }
-
-        .progress-bar {
-            height: 100%;
-            background: var(--accent);
-            width: 0%;
-            transition: width 0.3s;
-        }
-
+        .progress-bar { height: 100%; background: var(--accent); width: 0%; transition: width 0.3s; }
+        
         .question-text {
             font-size: 1.25rem;
             line-height: 1.6;
@@ -287,54 +202,46 @@
         }
 
         .option-label {
-            display: flex;
-            align-items: center;
+            display: flex; 
+            align-items: center; 
             gap: 15px;
-            padding: 15px 20px;
+            padding: 15px 20px; 
             border: 1px solid #e2e8f0;
-            border-radius: 6px;
+            border-radius: 6px; 
             margin-bottom: 12px;
-            cursor: pointer;
+            cursor: pointer; 
             transition: all 0.15s ease-in-out;
             background: white;
         }
-
-        .option-label:hover {
-            border-color: var(--accent);
-            background: #ebf8ff;
+        .option-label:hover { 
+            border-color: var(--accent); 
+            background: #ebf8ff; 
             transform: translateX(4px);
         }
-
-        .option-label.selected {
-            border-color: var(--primary);
-            background: #2c5282;
+        .option-label.selected { 
+            border-color: var(--primary); 
+            background: #2c5282; 
             color: white;
         }
-
         .option-marker {
-            width: 28px;
-            height: 28px;
+            width: 28px; 
+            height: 28px; 
             border-radius: 4px;
-            border: 2px solid #cbd5e0;
+            border: 2px solid #cbd5e0; 
             display: flex;
-            align-items: center;
+            align-items: center; 
             justify-content: center;
-            font-weight: 800;
-            font-size: 0.9rem;
+            font-weight: 800; 
+            font-size: 0.9rem; 
             color: var(--text-muted);
-            background: white;
+            background: white; 
             flex-shrink: 0;
         }
-
-        .option-label:hover .option-marker {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        .selected .option-marker {
-            background: white;
-            color: var(--primary);
-            border-color: white;
+        .option-label:hover .option-marker { border-color: var(--accent); color: var(--accent); }
+        .selected .option-marker { 
+            background: white; 
+            color: var(--primary); 
+            border-color: white; 
         }
 
         /* QUESTION MAP */
@@ -345,7 +252,6 @@
             padding: 20px;
             margin-top: 20px;
         }
-
         .map-title {
             font-size: 0.8rem;
             text-transform: uppercase;
@@ -355,47 +261,18 @@
             border-bottom: 1px solid #edf2f7;
             padding-bottom: 10px;
         }
-
-        .q-map {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
+        .q-map { display: flex; flex-wrap: wrap; gap: 8px; }
         .q-node {
-            width: 36px;
-            height: 36px;
-            border-radius: 4px;
-            border: 1px solid #cbd5e0;
-            background: #f7fafc;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 36px; height: 36px; border-radius: 4px;
+            border: 1px solid #cbd5e0; background: #f7fafc;
+            color: var(--text-muted); font-size: 0.9rem; font-weight: 600;
+            display: flex; align-items: center; justify-content: center;
             cursor: pointer;
             transition: all 0.2s;
         }
-
-        .q-node:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        .q-node.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-            transform: scale(1.1);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .q-node.answered {
-            background: #bee3f8;
-            color: #2b6cb0;
-            border-color: #90cdf4;
-        }
+        .q-node:hover { border-color: var(--accent); color: var(--accent); }
+        .q-node.active { background: var(--primary); color: white; border-color: var(--primary); transform: scale(1.1); box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .q-node.answered { background: #bee3f8; color: #2b6cb0; border-color: #90cdf4; }
 
         /* RESULTS SCREEN */
         .result-header {
@@ -403,60 +280,31 @@
             color: white;
             padding: 30px;
             border-radius: 8px 8px 0 0;
-            margin: -40px -40px 30px -40px;
-            /* Bleed to edges */
+            margin: -40px -40px 30px -40px; /* Bleed to edges */
             text-align: center;
         }
-
-        .score-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 20px;
-            margin: 30px 0;
-        }
-
-        .score-box {
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
+        .score-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin: 30px 0; }
+        .score-box { 
+            padding: 20px; 
+            border-radius: 8px; 
+            text-align: center; 
             border: 1px solid transparent;
         }
-
-        .score-box.correct {
-            background: #f0fff4;
-            border-color: #c6f6d5;
-            color: #276749;
-        }
-
-        .score-box.wrong {
-            background: #fff5f5;
-            border-color: #fed7d7;
-            color: #c53030;
-        }
-
-        .score-box.percent {
-            background: #ebf8ff;
-            border-color: #bee3f8;
-            color: #2c5282;
-        }
-
-        .review-item {
-            background: white;
-            border: 1px solid #e2e8f0;
+        .score-box.correct { background: #f0fff4; border-color: #c6f6d5; color: #276749; }
+        .score-box.wrong { background: #fff5f5; border-color: #fed7d7; color: #c53030; }
+        .score-box.percent { background: #ebf8ff; border-color: #bee3f8; color: #2c5282; }
+        
+        .review-item { 
+            background: white; 
+            border: 1px solid #e2e8f0; 
             border-left: 4px solid transparent;
-            border-radius: 4px;
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            border-radius: 4px; 
+            padding: 25px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
         }
-
-        .review-item.correct {
-            border-left-color: var(--success);
-        }
-
-        .review-item.wrong {
-            border-left-color: var(--danger);
-        }
+        .review-item.correct { border-left-color: var(--success); }
+        .review-item.wrong { border-left-color: var(--danger); }
 
         .review-option {
             padding: 10px 15px;
@@ -468,38 +316,57 @@
             border: 1px solid #edf2f7;
             background: #f8fafc;
         }
+        .review-option.correct { background: #f0fff4; border-color: #9ae6b4; color: #22543d; font-weight: 600; }
+        .review-option.user-wrong { background: #fff5f5; border-color: #feb2b2; color: #9b2c2c; }
 
-        .review-option.correct {
-            background: #f0fff4;
-            border-color: #9ae6b4;
-            color: #22543d;
-            font-weight: 600;
+        /* HISTORY TABLE */
+        .history-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.9rem; }
+        .history-table th { text-align: left; padding: 12px; background: #f7fafc; border-bottom: 2px solid #e2e8f0; color: var(--text-muted); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.5px; }
+        .history-table td { padding: 12px; border-bottom: 1px solid #edf2f7; }
+        .history-table tr:hover { background: #f8fafc; }
+        .badge { display: inline-block; padding: 4px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; }
+        .badge-green { background: #c6f6d5; color: #22543d; }
+        .badge-red { background: #fed7d7; color: #822727; }
+
+        footer { 
+            text-align: center; 
+            padding: 20px; 
+            color: var(--text-muted); 
+            font-size: 0.85rem; 
+            border-top: 1px solid #e2e8f0; 
+            background: white; 
+            margin-top: auto; 
         }
-
-        .review-option.user-wrong {
-            background: #fff5f5;
-            border-color: #feb2b2;
-            color: #9b2c2c;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            border-top: 1px solid #e2e8f0;
-            background: white;
-            margin-top: auto;
-        }
-
-        @media print {
-            .no-print {
-                display: none;
+        
+        /* PRINT FIXES */
+        @media print { 
+            .no-print { display: none !important; }
+            body, .main-wrapper { 
+                background: white; 
+                margin: 0; 
+                padding: 0; 
+                max-width: 100%; 
+                height: auto; 
+                overflow: visible;
             }
+            .card { 
+                box-shadow: none; 
+                border: none; 
+                padding: 0; 
+                margin: 0;
+            }
+            .result-header { 
+                color: black !important; 
+                background: white !important; 
+                border: 1px solid #000;
+                margin: 0 0 20px 0;
+            }
+            .score-box { border: 1px solid #ccc !important; }
+            .review-item { break-inside: avoid; border: 1px solid #ccc; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
         }
     </style>
 </head>
-
 <body>
 
     <!-- Header -->
@@ -516,19 +383,18 @@
                         <span id="timer-display">00:00</span>
                     </div>
                 </div>
-                <button onclick="confirmExit()" class="btn btn-danger"
-                    style="padding: 6px 16px; font-size: 0.8rem;">Exit Exam</button>
+                <button onclick="confirmExit()" class="btn btn-danger" style="padding: 6px 16px; font-size: 0.8rem;">Exit Exam</button>
             </div>
         </div>
     </header>
 
     <div class="main-wrapper">
         <!-- Screens -->
-
+        
         <!-- 1. Upload Screen -->
         <div id="screen-upload" class="animate-fade">
             <div class="text-center" style="margin-bottom: 50px; margin-top: 20px;">
-                <h1 style="font-size: 2.2rem; color: var(--primary); margin-bottom: 10px;">CBT Engine</h1>
+                <h1 style="font-size: 2.2rem; color: var(--primary); margin-bottom: 10px;">Personal CBT Engine</h1>
                 <p style="color: var(--text-muted); font-size: 1.1rem;">Secure Offline Examination System</p>
             </div>
 
@@ -536,25 +402,19 @@
                 <div class="upload-area text-center">
                     <input type="file" id="fileInput" accept=".txt" class="upload-input" onchange="handleFile(this)">
                     <div style="margin-bottom: 20px; color: var(--primary);">
-                        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                            <polyline points="17 8 12 3 7 8" />
-                            <line x1="12" y1="3" x2="12" y2="15" />
-                        </svg>
+                        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
                     </div>
                     <h3 style="margin: 0; color: var(--text-main); font-size: 1.2rem;">Select Exam File (.txt)</h3>
-                    <p style="margin-top: 8px; font-size: 0.9rem; color: var(--text-muted);">Click box or drag and drop
-                        file here</p>
+                    <p style="margin-top: 8px; font-size: 0.9rem; color: var(--text-muted);">Click box or drag and drop file here</p>
                 </div>
 
-                <div
-                    style="margin-top: 30px; background: #f8fafc; padding: 20px; border-radius: 6px; border: 1px solid #e2e8f0;">
-                    <strong
-                        style="display: block; margin-bottom: 10px; font-size: 0.9rem; color: var(--primary);">REQUIRED
-                        FILE FORMAT:</strong>
-                    <code
-                        style="display: block; background: #2d3748; color: #e2e8f0; padding: 15px; border-radius: 4px; white-space: pre-wrap; font-size: 0.85rem; font-family: Consolas, monospace;">1. Question text here?
+                <div class="text-center" style="margin-top: 20px;">
+                     <button onclick="showHistory()" class="btn btn-secondary" style="font-size: 0.85rem;">View Recent History (24h)</button>
+                </div>
+
+                <div style="margin-top: 30px; background: #f8fafc; padding: 20px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                    <strong style="display: block; margin-bottom: 10px; font-size: 0.9rem; color: var(--primary);">REQUIRED FILE FORMAT:</strong>
+                    <code style="display: block; background: #2d3748; color: #e2e8f0; padding: 15px; border-radius: 4px; white-space: pre-wrap; font-size: 0.85rem; font-family: Consolas, monospace;">1. Question text here?
 A. Option One
 B. Option Two
 Answer: A
@@ -567,19 +427,13 @@ Answer: A
         <!-- 2. Config Screen -->
         <div id="screen-config" class="hidden" style="max-width: 500px; margin: 20px auto;">
             <div class="card">
-                <div class="text-center"
-                    style="margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #e2e8f0;">
-                    <div
-                        style="width: 60px; height: 60px; background: #ebf8ff; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-weight: bold;">
-                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="12" cy="7" r="4"></circle>
-                        </svg>
+                <div class="text-center" style="margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #e2e8f0;">
+                    <div style="width: 60px; height: 60px; background: #ebf8ff; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-weight: bold;">
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                     </div>
                     <h2 style="margin:0; color: var(--primary);">Candidate Registration</h2>
                 </div>
-
+                
                 <div style="margin-bottom: 25px;">
                     <label class="config-label">Full Name</label>
                     <input type="text" id="candidateName" class="config-input" placeholder="Enter Full Name">
@@ -590,8 +444,7 @@ Answer: A
                     <input type="number" id="examDuration" class="config-input" value="30" min="1">
                 </div>
 
-                <div
-                    style="background: #f7fafc; padding: 15px; border-radius: 4px; margin-bottom: 30px; font-size: 0.9rem; color: var(--text-muted); border: 1px solid #edf2f7;">
+                <div style="background: #f7fafc; padding: 15px; border-radius: 4px; margin-bottom: 30px; font-size: 0.9rem; color: var(--text-muted); border: 1px solid #edf2f7;">
                     <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
                         <span>Total Questions:</span>
                         <strong style="color: var(--text-main);" id="totalQuestionsDisplay">0</strong>
@@ -602,8 +455,7 @@ Answer: A
                     </div>
                 </div>
 
-                <button onclick="startExam()" class="btn btn-primary" style="width: 100%; padding: 14px;">Start
-                    Examination</button>
+                <button onclick="startExam()" class="btn btn-primary" style="width: 100%; padding: 14px;">Start Examination</button>
             </div>
         </div>
 
@@ -613,18 +465,16 @@ Answer: A
                 <div class="progress-container">
                     <div id="progress-bar" class="progress-bar"></div>
                 </div>
-
+                
                 <div style="padding: 40px 40px 20px 40px;">
-                    <div
-                        style="margin-bottom: 10px; font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">
+                    <div style="margin-bottom: 10px; font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">
                         Question <span id="q-number">1</span> of <span id="q-total">10</span>
                     </div>
                     <h3 id="question-text" class="question-text"></h3>
                     <div id="options-container"></div>
                 </div>
 
-                <div
-                    style="background: #f8fafc; padding: 20px 40px; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+                <div style="background: #f8fafc; padding: 20px 40px; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
                     <button id="btn-prev" onclick="prevQuestion()" class="btn btn-secondary">Previous</button>
                     <button id="btn-next" onclick="nextQuestion()" class="btn btn-primary">Next Question</button>
                     <button id="btn-submit" onclick="submitExam()" class="btn btn-success hidden">Submit Exam</button>
@@ -643,8 +493,9 @@ Answer: A
             <div class="card" style="padding: 40px;">
                 <div class="result-header">
                     <h1 style="margin: 0; font-size: 1.8rem;">Examination Report</h1>
+                    <p style="margin: 5px 0 0 0; opacity: 0.8; font-size: 0.9rem;">Generated by ProQuiz CBT</p>
                 </div>
-
+                
                 <div class="text-center">
                     <p style="font-size: 1.1rem; color: var(--text-muted);">Candidate Name</p>
                     <h2 style="margin: 5px 0 30px 0; font-size: 1.5rem; color: var(--text-main);" id="result-name"></h2>
@@ -665,41 +516,62 @@ Answer: A
                     </div>
                 </div>
 
-                <div
-                    style="text-align: center; margin: 40px 0; padding: 20px; background: #f8fafc; border-radius: 8px;">
-                    <div
-                        style="font-size: 0.9rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">
-                        Total Score</div>
+                <div style="text-align: center; margin: 40px 0; padding: 20px; background: #f8fafc; border-radius: 8px;">
+                    <div style="font-size: 0.9rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Total Score</div>
                     <div style="font-size: 3.5rem; font-weight: 800; color: var(--primary); line-height: 1;">
-                        <span id="score-total">0</span><span style="font-size: 1.5rem; color: #a0aec0;"> / <span
-                                id="score-max">0</span></span>
+                        <span id="score-total">0</span><span style="font-size: 1.5rem; color: #a0aec0;"> / <span id="score-max">0</span></span>
                     </div>
                 </div>
 
                 <div class="text-center no-print">
                     <button onclick="resetApp()" class="btn btn-primary">Start New Session</button>
-                    <button onclick="window.print()" class="btn btn-secondary" style="margin-left: 10px;">Print
-                        Result</button>
+                    <button onclick="window.print()" class="btn btn-secondary" style="margin-left: 10px;">Print Result</button>
                 </div>
             </div>
 
-            <h3
-                style="margin: 40px 0 20px 0; color: var(--primary); border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">
-                Detailed Performance Review</h3>
+            <h3 style="margin: 40px 0 20px 0; color: var(--primary); border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">Detailed Performance Review</h3>
             <div id="review-container"></div>
+        </div>
+
+        <!-- 5. History Screen -->
+        <div id="screen-history" class="hidden">
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2 style="margin: 0; color: var(--primary);">Recent Exam History (24h)</h2>
+                    <button onclick="showScreen('upload')" class="btn btn-secondary" style="font-size: 0.8rem;">Back</button>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Candidate</th>
+                                <th>Score</th>
+                                <th>%</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-body">
+                            <!-- Filled via JS -->
+                        </tbody>
+                    </table>
+                </div>
+                <p id="no-history-msg" style="text-align: center; color: var(--text-muted); padding: 20px;">No records found in the last 24 hours.</p>
+                <div class="text-center" style="margin-top: 20px;">
+                    <button onclick="clearHistory()" class="btn btn-danger" style="font-size: 0.8rem;">Clear All Records</button>
+                </div>
+            </div>
         </div>
 
     </div>
 
     <footer class="no-print">
-        <p><strong>System:</strong> ProQuiz CBT Engine v2.0 &nbsp;|&nbsp; <strong>License:</strong> Educational Use Only
-        </p>
+        <p><strong>System:</strong> ProQuiz CBT Engine v2.0 &nbsp;|&nbsp; <strong>License:</strong> Educational Use Only</p>
         <p style="margin-top: 5px; opacity: 0.7;">Made by Abdullah Bello</p>
     </footer>
 
     <script>
         /* --- OFFLINE JAVASCRIPT LOGIC --- */
-
+        
         // State
         let questions = [];
         let answers = {};
@@ -713,19 +585,36 @@ Answer: A
             upload: document.getElementById('screen-upload'),
             config: document.getElementById('screen-config'),
             exam: document.getElementById('screen-exam'),
-            results: document.getElementById('screen-results')
+            results: document.getElementById('screen-results'),
+            history: document.getElementById('screen-history')
+        };
+
+        // Initialize
+        window.onload = function() {
+            cleanupRecords();
         };
 
         // Navigation
         function showScreen(name) {
             Object.values(screens).forEach(s => s.classList.add('hidden'));
             screens[name].classList.remove('hidden');
-
+            
             const controls = document.getElementById('exam-controls');
             if (name === 'exam') controls.classList.remove('hidden');
             else controls.classList.add('hidden');
+            
+            window.scrollTo(0,0);
+        }
 
-            window.scrollTo(0, 0);
+        // --- SANITIZER (The Fix for HTML Tags) ---
+        function escapeHTML(str) {
+            if (!str) return "";
+            return str
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
         }
 
         // 1. File Parsing
@@ -735,11 +624,11 @@ Answer: A
 
             examTitle = file.name.replace('.txt', '');
             const text = await file.text();
-
+            
             // Parser Logic
             const blocks = text.replace(/\r\n/g, '\n').split(/\n\s*\n/);
             questions = [];
-
+            
             blocks.forEach((block, idx) => {
                 const lines = block.trim().split('\n');
                 if (lines.length < 3) return;
@@ -787,13 +676,13 @@ Answer: A
 
             document.getElementById('user-display').innerHTML = `
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> 
-                ${name}
+                ${escapeHTML(name)}
             `;
             document.getElementById('result-name').innerText = name;
 
             const mins = parseInt(document.getElementById('examDuration').value) || 30;
             timeRemaining = mins * 60;
-
+            
             answers = {};
             currentIdx = 0;
             startTimer();
@@ -819,7 +708,7 @@ Answer: A
             const text = `${m}:${s.toString().padStart(2, '0')}`;
             const badge = document.getElementById('timer-badge');
             document.getElementById('timer-display').innerText = text;
-
+            
             if (timeRemaining < 60) badge.classList.add('urgent');
             else badge.classList.remove('urgent');
         }
@@ -830,7 +719,7 @@ Answer: A
             document.getElementById('question-text').innerText = q.text;
             document.getElementById('q-number').innerText = currentIdx + 1;
             document.getElementById('q-total').innerText = questions.length;
-
+            
             // Progress Bar
             const pct = ((currentIdx + 1) / questions.length) * 100;
             document.getElementById('progress-bar').style.width = `${pct}%`;
@@ -838,7 +727,7 @@ Answer: A
             // Options
             const container = document.getElementById('options-container');
             container.innerHTML = '';
-
+            
             q.options.forEach(opt => {
                 const isSelected = answers[q.id] === opt.id;
                 const el = document.createElement('div');
@@ -846,7 +735,7 @@ Answer: A
                 el.onclick = () => selectAnswer(q.id, opt.id);
                 el.innerHTML = `
                     <div class="option-marker">${opt.id}</div>
-                    <span style="flex:1; font-weight:500;">${opt.text}</span>
+                    <span style="flex:1; font-weight:500;">${escapeHTML(opt.text)}</span>
                 `;
                 container.appendChild(el);
             });
@@ -909,18 +798,28 @@ Answer: A
         function submitExam() {
             clearInterval(timer);
             let correct = 0;
-
-            // Calculate Score
+            
             questions.forEach(q => {
                 if (answers[q.id] === q.correct) correct++;
             });
 
             const wrong = questions.length - correct;
-            const percent = questions.length > 0 ? Math.round((correct / questions.length) * 100) : 0;
+            const percentVal = questions.length > 0 ? Math.round((correct / questions.length) * 100) : 0;
+            const percent = percentVal + '%';
+
+            // SAVE RECORD TO STORAGE
+            const record = {
+                name: document.getElementById('candidateName').value,
+                score: correct,
+                total: questions.length,
+                percent: percentVal,
+                timestamp: Date.now()
+            };
+            saveRecord(record);
 
             document.getElementById('score-correct').innerText = correct;
             document.getElementById('score-wrong').innerText = wrong;
-            document.getElementById('score-percent').innerText = percent + '%';
+            document.getElementById('score-percent').innerText = percent;
             document.getElementById('score-total').innerText = correct;
             document.getElementById('score-max').innerText = questions.length;
 
@@ -931,15 +830,15 @@ Answer: A
             questions.forEach((q, idx) => {
                 const userAns = answers[q.id];
                 const isCorrect = userAns === q.correct;
-
+                
                 const div = document.createElement('div');
                 div.className = `review-item ${isCorrect ? 'correct' : 'wrong'}`;
-
+                
                 let optionsHtml = '';
                 q.options.forEach(opt => {
                     let className = 'review-option';
                     let icon = '';
-
+                    
                     if (opt.id === q.correct) {
                         className += ' correct';
                         icon = '✓';
@@ -949,14 +848,14 @@ Answer: A
                     }
 
                     optionsHtml += `<div class="${className}">
-                        <span><b>${opt.id}.</b> ${opt.text}</span>
+                        <span><b>${opt.id}.</b> ${escapeHTML(opt.text)}</span>
                         <span>${icon}</span>
                     </div>`;
                 });
 
                 div.innerHTML = `
                     <div style="font-weight:bold; margin-bottom:10px; font-size: 1.05rem; color: ${isCorrect ? 'var(--success)' : 'var(--danger)'}">
-                        Question ${idx + 1}: <span style="color:var(--text-main)">${q.text}</span>
+                        Question ${idx+1}: <span style="color:var(--text-main)">${escapeHTML(q.text)}</span>
                     </div>
                     ${optionsHtml}
                     ${!isCorrect ? `<div style="margin-top:15px; font-size:0.9rem; padding: 10px; background: #fff5f5; border: 1px solid #fed7d7; border-radius: 4px; color: #c53030;">Correct Answer: <strong>${q.correct}</strong></div>` : ''}
@@ -965,6 +864,65 @@ Answer: A
             });
 
             showScreen('results');
+        }
+
+        // --- HISTORY FUNCTIONS ---
+        const STORAGE_KEY = 'cbt_records';
+        const EXPIRY_MS = 24 * 60 * 60 * 1000; // 24 hours
+
+        function saveRecord(record) {
+            const records = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            records.push(record);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+        }
+
+        function cleanupRecords() {
+            const now = Date.now();
+            let records = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            records = records.filter(r => (now - r.timestamp) < EXPIRY_MS);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+        }
+
+        function showHistory() {
+            cleanupRecords();
+            const records = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            const tbody = document.getElementById('history-body');
+            const msg = document.getElementById('no-history-msg');
+            
+            tbody.innerHTML = '';
+            
+            if (records.length === 0) {
+                msg.classList.remove('hidden');
+                tbody.parentNode.classList.add('hidden');
+            } else {
+                msg.classList.add('hidden');
+                tbody.parentNode.classList.remove('hidden');
+                
+                records.sort((a, b) => b.timestamp - a.timestamp);
+
+                records.forEach(r => {
+                    const date = new Date(r.timestamp);
+                    const timeStr = date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                    const badgeClass = r.percent >= 50 ? 'badge-green' : 'badge-red';
+                    
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${timeStr}</td>
+                        <td style="font-weight:600; color:var(--primary);">${escapeHTML(r.name)}</td>
+                        <td>${r.score}/${r.total}</td>
+                        <td><span class="badge ${badgeClass}">${r.percent}%</span></td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            }
+            showScreen('history');
+        }
+
+        function clearHistory() {
+            if(confirm("Delete all history records?")) {
+                localStorage.removeItem(STORAGE_KEY);
+                showHistory();
+            }
         }
 
         function confirmExit() {
@@ -979,5 +937,4 @@ Answer: A
         }
     </script>
 </body>
-
 </html>
