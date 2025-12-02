@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProQuiz CBT Engine (Enterprise)</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="no-print">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">Q</div>
+                <span>ProQuiz CBT</span>
+            </div>
+            <div id="exam-controls" class="header-info hidden">
+                <div class="header-info">
+                    <span id="user-display" style="display:flex; align-items:center; gap:8px; font-weight: 600;"></span>
+                    <div id="timer-badge" class="timer-badge">
+                        <span id="timer-display">00:00</span>
+                    </div>
+                </div>
+                <button id="btn-exit" class="btn btn-danger" style="padding: 6px 16px; font-size: 0.8rem;">Exit Exam</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-wrapper">
+        <!-- Screens -->
+
+        <!-- 1. Upload Screen -->
+        <div id="screen-upload" class="animate-fade">
+            <div class="text-center" style="margin-bottom: 50px; margin-top: 20px; text-align: center;">
+                <h1 style="font-size: 2.2rem; color: var(--primary); margin-bottom: 10px;">Personal CBT Engine</h1>
+                <p style="color: var(--text-muted); font-size: 1.1rem;">Secure Offline Examination System</p>
+            </div>
+
+            <div class="card" style="max-width: 600px; margin: 0 auto;">
+                <div class="upload-area text-center" style="text-align: center;">
+                    <input type="file" id="fileInput" accept=".txt" class="upload-input">
+                    <div style="margin-bottom: 20px; color: var(--primary);">
+                        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    </div>
+                    <h3 style="margin: 0; color: var(--text-main); font-size: 1.2rem;">Select Exam File (.txt)</h3>
+                    <p style="margin-top: 8px; font-size: 0.9rem; color: var(--text-muted);">Click box or drag and drop file here</p>
+                </div>
+
+                <div class="text-center" style="margin-top: 20px; text-align: center;">
+                     <button id="btn-history" class="btn btn-secondary" style="font-size: 0.85rem;">View Recent History (24h)</button>
+                </div>
+
+                <div style="margin-top: 30px; background: #f8fafc; padding: 20px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                    <strong style="display: block; margin-bottom: 10px; font-size: 0.9rem; color: var(--primary);">REQUIRED FILE FORMAT:</strong>
+                    <code style="display: block; background: #2d3748; color: #e2e8f0; padding: 15px; border-radius: 4px; white-space: pre-wrap; font-size: 0.85rem; font-family: Consolas, monospace;">1. Question text here?
+A. Option One
+B. Option Two
+Answer: A
+
+2. Next question...</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Config Screen -->
+        <div id="screen-config" class="hidden" style="max-width: 500px; margin: 20px auto;">
+            <div class="card">
+                <div class="text-center" style="margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #e2e8f0; text-align: center;">
+                    <div style="width: 60px; height: 60px; background: #ebf8ff; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-weight: bold;">
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    </div>
+                    <h2 style="margin:0; color: var(--primary);">Candidate Registration</h2>
+                </div>
+
+                <div style="margin-bottom: 25px;">
+                    <label class="config-label">Full Name</label>
+                    <input type="text" id="candidateName" class="config-input" placeholder="Enter Full Name">
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <label class="config-label">Exam Duration (Minutes)</label>
+                    <input type="number" id="examDuration" class="config-input" value="30" min="1">
+                </div>
+
+                <div style="background: #f7fafc; padding: 15px; border-radius: 4px; margin-bottom: 30px; font-size: 0.9rem; color: var(--text-muted); border: 1px solid #edf2f7;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span>Total Questions:</span>
+                        <strong style="color: var(--text-main);" id="totalQuestionsDisplay">0</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>Exam ID:</span>
+                        <strong style="color: var(--text-main); font-family: monospace;" id="fileNameDisplay">-</strong>
+                    </div>
+                </div>
+
+                <button id="btn-start-exam" class="btn btn-primary" style="width: 100%; padding: 14px;">Start Examination</button>
+            </div>
+        </div>
+
+        <!-- 3. Exam Screen -->
+        <div id="screen-exam" class="hidden">
+            <div class="card" style="padding: 0; overflow: hidden; position: relative;">
+                <div class="progress-container">
+                    <div id="progress-bar" class="progress-bar"></div>
+                </div>
+
+                <div style="padding: 40px 40px 20px 40px;">
+                    <div style="margin-bottom: 10px; font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">
+                        Question <span id="q-number">1</span> of <span id="q-total">10</span>
+                    </div>
+                    <h3 id="question-text" class="question-text"></h3>
+                    <div id="options-container"></div>
+                </div>
+
+                <div style="background: #f8fafc; padding: 20px 40px; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+                    <button id="btn-prev" class="btn btn-secondary">Previous</button>
+                    <button id="btn-next" class="btn btn-primary">Next Question</button>
+                    <button id="btn-submit" class="btn btn-success hidden">Submit Exam</button>
+                </div>
+            </div>
+
+            <!-- Question Map -->
+            <div class="map-container no-print">
+                <div class="map-title">Question Navigator</div>
+                <div id="question-map" class="q-map"></div>
+            </div>
+        </div>
+
+        <!-- 4. Results Screen -->
+        <div id="screen-results" class="hidden">
+            <div class="card" style="padding: 40px;">
+                <div class="result-header">
+                    <h1 style="margin: 0; font-size: 1.8rem;">Examination Report</h1>
+                    <p style="margin: 5px 0 0 0; opacity: 0.8; font-size: 0.9rem;">Generated by ProQuiz CBT</p>
+                </div>
+
+                <div class="text-center" style="text-align: center;">
+                    <p style="font-size: 1.1rem; color: var(--text-muted);">Candidate Name</p>
+                    <h2 style="margin: 5px 0 30px 0; font-size: 1.5rem; color: var(--text-main);" id="result-name"></h2>
+                </div>
+
+                <div class="score-grid">
+                    <div class="score-box correct">
+                        <span class="score-label" style="color: #2f855a;">Correct</span>
+                        <span class="score-val" id="score-correct">0</span>
+                    </div>
+                    <div class="score-box wrong">
+                        <span class="score-label" style="color: #c53030;">Wrong</span>
+                        <span class="score-val" id="score-wrong">0</span>
+                    </div>
+                    <div class="score-box percent">
+                        <span class="score-label" style="color: #2b6cb0;">Percentage</span>
+                        <span class="score-val" id="score-percent">0%</span>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin: 40px 0; padding: 20px; background: #f8fafc; border-radius: 8px;">
+                    <div style="font-size: 0.9rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Total Score</div>
+                    <div style="font-size: 3.5rem; font-weight: 800; color: var(--primary); line-height: 1;">
+                        <span id="score-total">0</span><span style="font-size: 1.5rem; color: #a0aec0;"> / <span id="score-max">0</span></span>
+                    </div>
+                </div>
+
+                <div class="text-center no-print" style="text-align: center;">
+                    <button id="btn-reset" class="btn btn-primary">Start New Session</button>
+                    <button onclick="window.print()" class="btn btn-secondary" style="margin-left: 10px;">Print Result</button>
+                </div>
+            </div>
+
+            <h3 style="margin: 40px 0 20px 0; color: var(--primary); border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">Detailed Performance Review</h3>
+            <div id="review-container"></div>
+        </div>
+
+        <!-- 5. History Screen -->
+        <div id="screen-history" class="hidden">
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2 style="margin: 0; color: var(--primary);">Recent Exam History (24h)</h2>
+                    <button id="btn-back-upload" class="btn btn-secondary" style="font-size: 0.8rem;">Back</button>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Candidate</th>
+                                <th>Score</th>
+                                <th>%</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-body">
+                            <!-- Filled via JS -->
+                        </tbody>
+                    </table>
+                </div>
+                <p id="no-history-msg" style="text-align: center; color: var(--text-muted); padding: 20px;">No records found in the last 24 hours.</p>
+                <div class="text-center" style="margin-top: 20px; text-align: center;">
+                    <button id="btn-clear-history" class="btn btn-danger" style="font-size: 0.8rem;">Clear All Records</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="no-print">
+        <p><strong>System:</strong> ProQuiz CBT Engine v2.0 &nbsp;|&nbsp; <strong>License:</strong> Educational Use Only</p>
+        <p style="margin-top: 5px; opacity: 0.7;">Made by Abdullah Bello</p>
+    </footer>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
